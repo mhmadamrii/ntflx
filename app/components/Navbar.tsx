@@ -3,9 +3,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '../../public/netflix_logo.svg'
+import UserNav from './UserNav'
+
 import { usePathname } from 'next/navigation'
 import { Bell, Search } from 'lucide-react'
-import UserNav from './UserNav'
 
 interface linkProps {
   name: string
@@ -13,11 +14,26 @@ interface linkProps {
 }
 
 const links: linkProps[] = [
-  { name: 'Home', href: '/home' },
-  { name: 'Tv Shows', href: '/home/shows' },
-  { name: 'Movies', href: '/home/movies' },
-  { name: 'Recently Added', href: '/home/recently' },
-  { name: 'My List', href: '/home/user/list' },
+  {
+    name: 'Home',
+    href: '/home',
+  },
+  {
+    name: 'Tv Shows',
+    href: '/home/shows',
+  },
+  {
+    name: 'Movies',
+    href: '/home/movies',
+  },
+  {
+    name: 'Recently Added',
+    href: '/home/recently',
+  },
+  {
+    name: 'My List',
+    href: '/home/user/list',
+  },
 ]
 
 export default function Navbar() {

@@ -1,7 +1,11 @@
 'use client'
 
+import Image from 'next/image'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { signOut, useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,16 +14,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { signOut } from 'next-auth/react'
 
 export default function UserNav() {
+  const { data: session } = useSession()
+  console.log('session', session)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' className='relative h-10 w-10 rounded-sm'>
-          <Avatar className='h-10 w-10 rounded-sm'>
-            <AvatarImage src='https://nkljkwikhlggqlnjctge.supabase.co/storage/v1/object/public/user%20image/avatar.png' />
-            <AvatarFallback className='rounded-sm'>Jan</AvatarFallback>
+          <Avatar className='h-10 w-10 rounded-full'>
+            {session?.user?.image && (
+              <Image
+                src={session?.user?.image}
+                alt='avatar'
+                className='h-10 w-10 rounded-sm'
+                width={40}
+                height={40}
+              />
+            )}
+            <AvatarFallback className='rounded-sm'>U</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -27,9 +40,11 @@ export default function UserNav() {
       <DropdownMenuContent className='w-56' align='end' forceMount>
         <DropdownMenuLabel>
           <div className='flex flex-col space-y-1'>
-            <p className='text-sm font-medium leading-none'>Jan</p>
+            <p className='text-sm font-medium leading-none'>
+              {session?.user?.name}
+            </p>
             <p className='text-xs leading-none text-muted-foreground'>
-              jkasdf@asdkfj.com
+              {session?.user?.email}
             </p>
           </div>
         </DropdownMenuLabel>

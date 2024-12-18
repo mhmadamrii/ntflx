@@ -6,6 +6,10 @@ import GoogleProvider from 'next-auth/providers/google'
 import EmailProvider from 'next-auth/providers/email'
 
 export const authOptions = {
+  pages: {
+    signIn: '/login',
+    signOut: '/',
+  },
   adapter: PrismaAdapter(prisma),
   providers: [
     GitHubProvider({
